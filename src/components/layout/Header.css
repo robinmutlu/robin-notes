@@ -87,6 +87,12 @@
     background: var(--bg-tertiary);
 }
 
+.nav-link.active {
+    color: var(--accent-primary);
+    background: var(--bg-tertiary);
+    font-weight: 600;
+}
+
 .nav-link-admin {
     color: var(--accent-primary);
 }

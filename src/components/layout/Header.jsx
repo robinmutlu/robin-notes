@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from 'react';
@@ -11,6 +11,7 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation(); // Add useLocation for active state
 
     // Close menus when clicking outside
     useEffect(() => {
@@ -37,6 +38,8 @@ export default function Header() {
     // Get avatar URL
     const avatarSrc = user?.avatar ? getFileUrl(user.avatar) : getAvatarUrl?.() || null;
 
+    const isActive = (path) => location.pathname === path;
+
     return (
         <>
             <header className="header">
@@ -47,12 +50,12 @@ export default function Header() {
                     </Link>
 
                     <nav className="header-nav desktop-only">
-                        <Link to="/" className="nav-link">Ana Sayfa</Link>
+                        <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>Ana Sayfa</Link>
                         {isAuthenticated && (
-                            <Link to="/dashboard" className="nav-link">Panelim</Link>
+                            <Link to="/dashboard" className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}>Panelim</Link>
                         )}
                         {isAdmin && (
-                            <Link to="/admin" className="nav-link nav-link-admin">Admin</Link>
+                            <Link to="/admin" className={`nav-link nav-link-admin ${isActive('/admin') ? 'active' : ''}`}>Admin</Link>
                         )}
                     </nav>
 
