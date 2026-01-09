@@ -81,10 +81,15 @@ export default function UserDashboard() {
         const file = e.target.files[0];
         if (file) {
             try {
-                const result = await api.uploadFile(file);
+                setUploadProgress({ percent: 0, speed: '0 KB/s', fileName: file.name });
+                const result = await api.uploadFileWithProgress(file, (progress) => {
+                    setUploadProgress(progress);
+                });
                 setVideoUrl(result.url);
                 setVideoPreview(api.getFileUrl(result.url));
+                setUploadProgress(null);
             } catch (error) {
+                setUploadProgress(null);
                 alert('Video yüklenemedi: ' + error.message);
             }
         }
@@ -852,7 +857,21 @@ export default function UserDashboard() {
                                     <div className="form-group">
                                         <label>Video Yükle</label>
                                         <div className="upload-area">
-                                            {videoPreview ? (
+                                            {uploadProgress && contentType === 'video' ? (
+                                                <div className="upload-progress">
+                                                    <div className="upload-progress-info">
+                                                        <span className="upload-filename">{uploadProgress.fileName}</span>
+                                                        <span className="upload-speed">{uploadProgress.speed}</span>
+                                                    </div>
+                                                    <div className="upload-progress-bar">
+                                                        <div
+                                                            className="upload-progress-fill"
+                                                            style={{ width: `${uploadProgress.percent}%` }}
+                                                        />
+                                                    </div>
+                                                    <span className="upload-percent">{uploadProgress.percent}%</span>
+                                                </div>
+                                            ) : videoPreview ? (
                                                 <div className="upload-preview video-preview">
                                                     <video src={videoPreview} controls style={{ maxWidth: '100%', maxHeight: '200px' }} />
                                                     <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setVideoUrl(null); setVideoPreview(null); }}>Kaldır</button>
