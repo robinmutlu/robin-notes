@@ -5,7 +5,7 @@ import * as api from '../services/apiService';
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
-  const { user, isAuthenticated, isAdmin } = useAuth();
+  const { user, isAuthenticated, isAdmin, isLoading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [courses, setCourses] = useState([]);
   const [users, setUsers] = useState([]);
@@ -15,8 +15,10 @@ export default function AdminDashboard() {
   const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
-    refreshData();
-  }, []);
+    if (!authLoading && isAuthenticated && isAdmin) {
+      refreshData();
+    }
+  }, [authLoading, isAuthenticated, isAdmin]);
 
   const refreshData = async () => {
     setIsLoading(true);
@@ -34,6 +36,15 @@ export default function AdminDashboard() {
     }
     setIsLoading(false);
   };
+
+  if (authLoading) {
+    return (
+      <div className="loading-state" style={{ minHeight: '100vh' }}>
+        <div className="loading-spinner"></div>
+        <p>Yetkiler kontrol ediliyor...</p>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;

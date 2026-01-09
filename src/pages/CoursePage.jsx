@@ -99,6 +99,22 @@ export default function CoursePage() {
         }
     };
 
+    const getNeighbors = () => {
+        if (!selectedContent || !course?.contents) return { prev: null, next: null };
+        const sorted = [...course.contents].sort((a, b) => (a.order || 0) - (b.order || 0));
+        const index = sorted.findIndex(c => (c._id || c.id) === (selectedContent._id || selectedContent.id));
+        return {
+            prev: index > 0 ? sorted[index - 1] : null,
+            next: index < sorted.length - 1 ? sorted[index + 1] : null
+        };
+    };
+
+    const navigateContent = (direction) => {
+        const { prev, next } = getNeighbors();
+        if (direction === 'prev' && prev) setSelectedContent(prev);
+        if (direction === 'next' && next) setSelectedContent(next);
+    };
+
     if (!course) {
         return (
             <div className="course-loading">
@@ -236,6 +252,29 @@ export default function CoursePage() {
                         </div>
                         <div className="content-body">
                             {renderViewer()}
+
+                            <div className="content-navigation">
+                                <button
+                                    className="btn btn-nav btn-prev"
+                                    onClick={() => navigateContent('prev')}
+                                    disabled={!getNeighbors().prev}
+                                >
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M15 18l-6-6 6-6" />
+                                    </svg>
+                                    Önceki İçerik
+                                </button>
+                                <button
+                                    className="btn btn-nav btn-next"
+                                    onClick={() => navigateContent('next')}
+                                    disabled={!getNeighbors().next}
+                                >
+                                    Sonraki İçerik
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M9 18l6-6-6-6" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ) : (

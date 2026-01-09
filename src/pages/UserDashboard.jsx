@@ -6,7 +6,7 @@ import * as api from '../services/apiService';
 import './UserDashboard.css';
 
 export default function UserDashboard() {
-    const { user, isAuthenticated, canUpload, updateProfile, getAvatarUrl } = useAuth();
+    const { user, isAuthenticated, canUpload, updateProfile, getAvatarUrl, isLoading: authLoading } = useAuth();
     const { theme, toggleTheme, setSystemTheme } = useTheme();
     const [activeTab, setActiveTab] = useState('courses');
     const [courses, setCourses] = useState([]);
@@ -38,12 +38,12 @@ export default function UserDashboard() {
     const documentInputRef = useRef(null);
 
     useEffect(() => {
-        if (user) {
+        if (!authLoading && user) {
             loadCourses();
             setProfileForm({ name: user.name, email: user.email });
             setAvatarPreview(getAvatarUrl());
         }
-    }, [user]);
+    }, [user, authLoading]);
 
     const loadCourses = async () => {
         try {
@@ -54,6 +54,15 @@ export default function UserDashboard() {
         }
         setIsLoading(false);
     };
+
+    if (authLoading) {
+        return (
+            <div className="loading-state" style={{ minHeight: '100vh' }}>
+                <div className="loading-spinner"></div>
+                <p>Oturum kontrol ediliyor...</p>
+            </div>
+        );
+    }
 
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
@@ -1186,10 +1195,10 @@ function CourseItem({ course, onEdit, onDelete, onAddContent, onEditContent, onD
                 )}
             </div>
             <div className="course-actions">
-                <Link to={`/course/${course._id || course.id}`} className="btn btn-ghost btn-sm">Görüntüle</Link>
-                <button className="btn btn-ghost btn-sm" onClick={onAddContent}>İçerik Ekle</button>
-                <button className="btn btn-ghost btn-sm" onClick={onEdit}>Düzenle</button>
-                <button className="btn btn-ghost btn-sm btn-danger" onClick={onDelete}>Sil</button>
+                <Link to={`/course/${course._id || course.id}`} className="btn btn-view btn-sm">Görüntüle</Link>
+                <button className="btn btn-add btn-sm" onClick={onAddContent}>İçerik Ekle</button>
+                <button className="btn btn-edit btn-sm" onClick={onEdit}>Düzenle</button>
+                <button className="btn btn-delete btn-sm" onClick={onDelete}>Sil</button>
             </div>
         </div>
     );
