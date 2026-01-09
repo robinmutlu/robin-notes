@@ -1,0 +1,259 @@
+.note-viewer {
+    padding: 32px;
+}
+
+.note-content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.note-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    color: var(--text-primary);
+}
+
+.note-content h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text-primary);
+}
+
+.note-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: var(--text-primary);
+}
+
+.note-content p {
+    margin-bottom: 16px;
+}
+
+.note-content strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.note-content em {
+    font-style: italic;
+}
+
+.note-content code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 2px 8px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+    color: var(--accent-primary);
+}
+
+.note-content pre {
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+}
+
+.note-content pre code {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.note-content ul {
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.note-content li {
+    margin-bottom: 8px;
+}
+
+.note-content li::marker {
+    color: var(--accent-primary);
+}
+
+/* Document Loading */
+.document-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    gap: 16px;
+    color: var(--text-secondary);
+}
+
+.document-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    gap: 16px;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 48px;
+}
+
+.document-error p {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+/* PDF Viewer */
+.pdf-viewer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pdf-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.page-indicator {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 120px;
+    text-align: center;
+}
+
+.pdf-container {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.pdf-container canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Document Badge */
+.document-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+/* Word Content Styles */
+.word-content {
+    background: var(--bg-card);
+    padding: 32px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.word-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    margin: 16px 0;
+}
+
+.word-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+
+.word-content th,
+.word-content td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+}
+
+.word-content th {
+    background: var(--bg-tertiary);
+    font-weight: 600;
+}
+
+/* Document Header */
+.document-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+}
+
+.document-header .file-icon {
+    font-size: 24px;
+}
+
+.document-header .file-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Document Download Section */
+.document-download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    text-align: center;
+}
+
+.document-download h3 {
+    margin: 0 0 8px;
+    color: var(--text-primary);
+}
+
+.document-download p {
+    margin: 0 0 24px;
+    color: var(--text-secondary);
+}
+
+/* Word Viewer */
+.word-viewer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.word-container {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
