@@ -1,7 +1,7 @@
 // API Service for Robin Notes
 // Handles all communication with the backend server
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
 
 // Get auth token from localStorage or sessionStorage
 const getToken = () => localStorage.getItem('robinnotes-token') || sessionStorage.getItem('robinnotes-token');
@@ -311,7 +311,7 @@ export const uploadFileWithProgress = (file, onProgress) => {
         });
 
         const token = getToken();
-        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const baseUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
         xhr.open('POST', `${baseUrl}/uploads`);
         if (token) {
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -341,14 +341,14 @@ export const getFileUrl = (path) => {
     if (!path) return null;
     if (path.startsWith('http') || path.startsWith('data:')) return path;
     // For local uploads, prepend server URL
-    const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+    const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || (import.meta.env.PROD ? '' : 'http://localhost:5000');
     return `${baseUrl}${path}`;
 };
 
 // Get download URL (forces download instead of opening)
 export const getDownloadUrl = (path, originalName = null) => {
     if (!path) return null;
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const baseUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
     const filename = path.split('/').pop();
     let url = `${baseUrl}/uploads/download/${filename}`;
     if (originalName) {
