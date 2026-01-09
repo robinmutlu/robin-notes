@@ -205,7 +205,7 @@ export default function HomePage() {
                             <img src="/logo.png" alt="Robin Notes" className="footer-logo-img" />
                             <span>Robin Notes</span>
                         </div>
-                        <p className="footer-text">© 2024 Robin Notes. Tüm hakları saklıdır.</p>
+                        <p className="footer-text">© {new Date().getFullYear()} Robin Notes. Tüm hakları saklıdır.</p>
                     </div>
                 </div>
             </footer>
