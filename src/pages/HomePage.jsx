@@ -72,7 +72,10 @@ export default function HomePage() {
                         ) : (
                             <button
                                 className="btn btn-primary btn-lg"
-                                onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
+                                onClick={() => {
+                                    const el = document.getElementById('courses');
+                                    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+                                }}
                             >
                                 Hemen Başla
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
