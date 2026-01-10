@@ -74,7 +74,24 @@ export default function HomePage() {
                                 className="btn btn-primary btn-lg"
                                 onClick={() => {
                                     const el = document.getElementById('courses');
-                                    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+                                    if (el) {
+                                        const start = window.scrollY;
+                                        const target = el.offsetTop;
+                                        const distance = target - start;
+                                        const duration = 800;
+                                        let startTime = null;
+
+                                        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+                                        const animate = (currentTime) => {
+                                            if (!startTime) startTime = currentTime;
+                                            const elapsed = currentTime - startTime;
+                                            const progress = Math.min(elapsed / duration, 1);
+                                            window.scrollTo(0, start + distance * easeOutCubic(progress));
+                                            if (progress < 1) requestAnimationFrame(animate);
+                                        };
+                                        requestAnimationFrame(animate);
+                                    }
                                 }}
                             >
                                 Hemen Başla
@@ -206,7 +223,10 @@ export default function HomePage() {
                             <img src="/logo.png" alt="Robin Notes" className="footer-logo-img" />
                             <span>Robin Notes</span>
                         </div>
-                        <p className="footer-text">© {new Date().getFullYear()} Robin Notes. Tüm hakları saklıdır.</p>
+                        <p className="footer-text">
+                            © {new Date().getFullYear()} Robin Notes. Tüm hakları saklıdır. | Developed by{' '}
+                            <a href="https://rob1n.dev" target="_blank" rel="noopener noreferrer" className="footer-link">rob1n.dev</a>
+                        </p>
                     </div>
                 </div>
             </footer>

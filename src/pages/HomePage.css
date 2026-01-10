@@ -392,6 +392,18 @@
     color: var(--text-tertiary);
 }
 
+.footer-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .hero {
         padding: 40px 16px;
